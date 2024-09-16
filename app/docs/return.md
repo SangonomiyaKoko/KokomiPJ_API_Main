@@ -37,4 +37,9 @@
 | No | Message | Description |
 |:-----:|-----|-----|
 | 1 | SUCCESS | ok |
-| 2 | UNAUTHORIZED | No permission to use the interface |
+| 2 | PROGRAM ERROR | Errors occur when the program is running |
+| 5 | MYSQL ERROR | Error encountered when querying Mysql |
+| 3 | APIUSER ADDED SUCCESSFULLY | API user added successfully |
+| 4 | APIUSER ALREADY EXISTS | The api user already exists, adding failed |
+| 6 | APIUSER DELETED SUCCESSFULLY | API user deleted successfully |
+| 7 | APIUSER NOT FOUND | API user not found, Deletion failed |

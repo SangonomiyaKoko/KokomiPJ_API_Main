@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     API_HOST: str

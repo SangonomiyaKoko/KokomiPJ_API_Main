@@ -6,6 +6,12 @@ from jose import jwt
 class API_Secruity:
     SECRET_KEY = "kokomi"
     ALGORITHM = "HS256"
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(API_Secruity, cls).__new__(cls)
+        return cls._instance
     
     def encode_token(
         self,

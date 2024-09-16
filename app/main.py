@@ -7,6 +7,16 @@ import uvicorn
 
 app = FastAPI()
 
+# @app.on_event("startup")
+# async def startup():
+#     await mysql_pool.init_pool()
+
+# # FastAPI 关闭时关闭 MySQL 连接池
+# @app.on_event("shutdown")
+# async def shutdown():
+#     await mysql_pool.close_pool()
+
+
 @app.get("/", summary='Root', tags=['Default'])
 async def root():
     """

@@ -1,0 +1,46 @@
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     9DF6032FB0BE077126C98FACD957E978
+>Error Time:   2024-09-16 23:44:23
+>Error Name:   TypeError
+>Error Params: []
+>Error File:   F:\Kokomi_API_Main\app\api\root\scripts\api_get_user.py
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\root\scripts\api_get_user.py", line 18, in main
+    if db_result['status'] == 'ok':
+TypeError: 'coroutine' object is not subscriptable
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     7AD5ED816DA04A764B73802275833EE8
+>Error Time:   2024-09-16 23:46:43
+>Error Name:   AttributeError
+>Error Params: []
+>Error File:   F:\Kokomi_API_Main\app\api\root\scripts\api_get_user.py
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\root\scripts\api_get_user.py", line 17, in main
+    db_result = await API_Auth.get_all_users()
+  File "F:\Kokomi_API_Main\app\services\user_service.py", line 59, in get_all_users
+    async with mysql_pool.pool.acquire() as conn:
+AttributeError: 'NoneType' object has no attribute 'acquire'
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     EA69CDC80188432201E61E851638D5D3
+>Error Time:   2024-09-16 23:48:02
+>Error Name:   AttributeError
+>Error Params: []
+>Error File:   F:\Kokomi_API_Main\app\api\root\scripts\api_get_user.py
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\root\scripts\api_get_user.py", line 17, in main
+    db_result = await API_Auth.get_all_users()
+  File "F:\Kokomi_API_Main\app\services\user_service.py", line 59, in get_all_users
+    async with mysql_pool.pool.acquire() as conn:
+AttributeError: 'NoneType' object has no attribute 'acquire'
+
+-------------------------------------------------------------------------------------------------------------
