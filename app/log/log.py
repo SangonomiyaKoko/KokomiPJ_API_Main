@@ -31,9 +31,9 @@ class API_Logging:
             f.write(f">Platform:     API\n")
             f.write(f">Track ID:     {track_id}\n")
             f.write(f">Error Time:   {form_time}\n")
+            f.write(f">Error File:   {error_file}\n")
             f.write(f">Error Name:   {error_name}\n")
             f.write(f">Error Params: {error_params}\n")
-            f.write(f">Error File:   {error_file}\n")
             f.write(f">Error Info: \n")
             f.write(f"{error_info}\n")
             f.write('-------------------------------------------------------------------------------------------------------------\n')
@@ -43,22 +43,23 @@ class API_Logging:
     def write_mysql_error(
         self,
         error_file: str,
+        error_code: str,
+        error_info: str,
         error_query: str,
-        error_data: str,
-        error_name: str
+        error_data: str
     ):
         form_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-        track_id = self.calculate_md5((form_time + error_name).encode()).upper()
+        track_id = self.calculate_md5((form_time + error_code).encode()).upper()
         now_day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
         with open(f'{now_day}.txt', "a", encoding="utf-8") as f:
             f.write('-------------------------------------------------------------------------------------------------------------\n')
             f.write(f">Platform:     MYSQL\n")
             f.write(f">Track ID:     {track_id}\n")
             f.write(f">Error Time:   {form_time}\n")
-            f.write(f">Error Name:   {error_name}\n")
             f.write(f">Error File:   {error_file}\n")
-            f.write(f">Error SQL: \n")
-            f.write(f"{error_query + error_data}\n")
+            f.write(f">Error Code:   {error_code}\n")
+            f.write(f">Error Info:   {error_info}\n")
+            f.write(f">Error SQL: {error_query + error_data}\n")
             f.write('-------------------------------------------------------------------------------------------------------------\n')
         f.close()
         return 'MYSQL_' + track_id
@@ -78,9 +79,9 @@ class API_Logging:
             f.write(f">Platform:     REDIS\n")
             f.write(f">Track ID:     {track_id}\n")
             f.write(f">Error Time:   {form_time}\n")
+            f.write(f">Error File:   {error_file}\n")
             f.write(f">Error Name:   {error_name}\n")
             f.write(f">Error Params: {error_params}\n")
-            f.write(f">Error File:   {error_file}\n")
             f.write(f">Error Info: \n")
             f.write(f"{error_info}\n")
             f.write('-------------------------------------------------------------------------------------------------------------\n')

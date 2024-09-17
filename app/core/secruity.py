@@ -13,10 +13,17 @@ class API_Secruity:
             cls._instance = super(API_Secruity, cls).__new__(cls)
         return cls._instance
     
+    def encode_password(
+        self,
+        password: str
+    ) -> str:
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        return hashed_password
+    
     def encode_token(
         self,
         to_encode: dict
-    ):
+    ) -> str:
         encoded_str = jwt.encode(
             claims=to_encode, 
             key=self.SECRET_KEY, 

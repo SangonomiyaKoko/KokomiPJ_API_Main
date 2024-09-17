@@ -32,6 +32,7 @@
 | 200 | Request Success |
 | 401 | Invalid token |
 | 403 | Insufficient permissions |
+| 500 | Internal Server Error |
 
 # Retrun message list
 | No | Message | Description |

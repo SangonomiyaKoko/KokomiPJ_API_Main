@@ -41,7 +41,7 @@ async def addApiUser(
     return await api_add_user.main(
         username=username,
         password=password,
-        roles=roles
+        roles=str(roles)
     )
 
 @router.delete('/del-api-user')

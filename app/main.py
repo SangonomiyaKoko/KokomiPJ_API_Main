@@ -1,21 +1,26 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
+from contextlib import asynccontextmanager
+from .core.config import settings
 from .common.dependencies import Permission, get_user
 from .core.secruity import API_Secruity
+from .db.mysql import mysql_pool
 from .api.root.urls import router as root_router
 import uvicorn
 
-app = FastAPI()
 
-# @app.on_event("startup")
-# async def startup():
-#     await mysql_pool.init_pool()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        await mysql_pool.init_pool()
+        print('INFO:     Connection has been established with MYSQL')
+    except:
+        print('ERROR:    Failed to establish connection with MYSQL')
+    yield
+    await mysql_pool.close_pool()
+    print('INFO:     The connection to MYSQL has been closed')
 
-# # FastAPI 关闭时关闭 MySQL 连接池
-# @app.on_event("shutdown")
-# async def shutdown():
-#     await mysql_pool.close_pool()
-
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/", summary='Root', tags=['Default'])
 async def root():
@@ -34,18 +39,20 @@ async def root():
 
 @app.post("/token", summary='Login', tags=['Default'])
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = get_user(form_data.username)
+    user = await get_user(form_data.username)
+    if user['status'] != 'ok':
+        raise HTTPException(status_code=500, detail="Internal Server Error")
     _API_Secruity = API_Secruity()
     if not user or not _API_Secruity.verify_password(
         plain_password=form_data.password, 
-        hashed_password=user["password"]
+        hashed_password=user['data']["password"]
     ):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     
     access_token = _API_Secruity.create_access_token(
         data = {
-            "sub": user["username"], 
-            "role": user["role"]
+            "sub": user['data']["username"], 
+            "role": user['data']["role"]
         }
     )
     return {
@@ -64,6 +71,6 @@ app.include_router(
 def main():
     uvicorn.run(
         app=app,
-        host='127.0.0.1',
-        port=8080
+        host=settings.API_HOST,
+        port=settings.API_PORT
     )

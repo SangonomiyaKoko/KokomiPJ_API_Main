@@ -13,7 +13,7 @@ class MySQLConnectionPool:
             port=settings.MYSQL_PORT,
             user=settings.MYSQL_USERNAME,
             password=settings.MYSQL_PASSWORD,
-            minsize=1,
+            minsize=10,
             maxsize=20
         )
     
@@ -22,29 +22,3 @@ class MySQLConnectionPool:
         await self.pool.wait_closed()
 
 mysql_pool = MySQLConnectionPool()
-
-    # async def fetch_all(self, query, params=None, db=None):
-    #     async with self.pool.acquire() as conn:
-    #         if db:
-    #             await conn.select_db(db)  # 动态选择数据库
-    #         async with conn.cursor(aiomysql.DictCursor) as cursor:
-    #             await cursor.execute(query, params)
-    #             result = await cursor.fetchall()
-    #             return result
-
-    # async def fetch_one(self, query, params=None, db=None):
-    #     async with self.pool.acquire() as conn:
-    #         if db:
-    #             await conn.select_db(db)  # 动态选择数据库
-    #         async with conn.cursor(aiomysql.DictCursor) as cursor:
-    #             await cursor.execute(query, params)
-    #             result = await cursor.fetchone()
-    #             return result
-
-    # async def execute(self, query, params=None, db=None):
-    #     async with self.pool.acquire() as conn:
-    #         if db:
-    #             await conn.select_db(db)  # 动态选择数据库
-    #         async with conn.cursor() as cursor:
-    #             await cursor.execute(query, params)
-    #             await conn.commit()

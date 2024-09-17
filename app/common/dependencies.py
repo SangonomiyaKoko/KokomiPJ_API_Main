@@ -2,23 +2,17 @@
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from . import API_Secruity
+from . import API_Secruity, API_Auth
+from . import SuccessResponse, ErrorResponse
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
-fake_users_db = {
-    "root": {
-        "username": "root",
-        "password": "9a3d1cc750db369112832a05ab5d32e54d4905c76e565eb9ca005947dce8ce95",
-        "role": "['root']"
-    }
-}
 
-
-def get_user(username: str):
-    if username in fake_users_db:
-        user_dict = fake_users_db[username]
-        return user_dict
+async def get_user(username: str):
+    result: SuccessResponse | ErrorResponse = await API_Auth.get_user(
+        username = username
+    )
+    return result.to_dict()
     
 def check_permission(
     access_roles: list,
