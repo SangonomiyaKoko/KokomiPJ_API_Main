@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from contextlib import asynccontextmanager
@@ -5,6 +7,7 @@ from .core.config import settings
 from .common.dependencies import Permission, get_user
 from .core.secruity import API_Secruity
 from .db.mysql import mysql_pool
+from .db.redis import redis_pool
 from .api.root.urls import router as root_router
 import uvicorn
 
@@ -13,12 +16,19 @@ import uvicorn
 async def lifespan(app: FastAPI):
     try:
         await mysql_pool.init_pool()
-        print('INFO:     Connection has been established with MYSQL')
+        print('INFO:     Connection has been established with MySQL')
     except:
-        print('ERROR:    Failed to establish connection with MYSQL')
+        print('ERROR:    Failed to establish connection with MySQL')
+    try:
+        await redis_pool.init_pool()
+        print('INFO:     Connection has been established with Redis')
+    except:
+        print('ERROR:    Failed to establish connection with Redis')
     yield
     await mysql_pool.close_pool()
-    print('INFO:     The connection to MYSQL has been closed')
+    print('INFO:     The connection to MySQL has been closed')
+    await redis_pool.close_pool()
+    print('INFO:     The connection to Redis has been closed')
 
 app = FastAPI(lifespan=lifespan)
 
