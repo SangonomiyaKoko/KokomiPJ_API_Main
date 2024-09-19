@@ -77,7 +77,6 @@ app.include_router(
     dependencies=[Depends(Permission.check_root_permission)]
 )
 
-
 def main():
     uvicorn.run(
         app=app,

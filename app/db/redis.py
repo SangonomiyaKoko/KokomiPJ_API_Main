@@ -13,8 +13,6 @@ class RedisConnectionPool:
         """
         self.pool = await aioredis.from_url(
             url=f"redis://:{settings.REDIS_PASSWORD}@{settings.REDIS_HOST}:{settings.REDIS_PORT}",
-            minsize=5,
-            maxsize=20,
             encoding="utf-8",
             decode_responses=True
         )

@@ -1,2 +1,2 @@
-from schemas.responses import main
-main()
+# from schemas.responses import main
+# main()

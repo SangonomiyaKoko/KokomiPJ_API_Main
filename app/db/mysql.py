@@ -15,9 +15,7 @@ class MySQLConnectionPool:
             host=settings.MYSQL_HOST,
             port=settings.MYSQL_PORT,
             user=settings.MYSQL_USERNAME,
-            password=settings.MYSQL_PASSWORD,
-            minsize=5,
-            maxsize=20
+            password=settings.MYSQL_PASSWORD
         )
     
     async def close_pool(self):
