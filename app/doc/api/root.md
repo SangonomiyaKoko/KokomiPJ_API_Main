@@ -14,7 +14,7 @@
 
 ### Request method
 
-- Methods: GET
+- Methods: `GET`
 - Full URL: `/root/api-users`
 
 

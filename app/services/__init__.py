@@ -5,5 +5,6 @@ The business logic layer is responsible for implementing the business processing
 '''
 
 from ..db.mysql import mysql_pool
+from ..db.redis import redis_pool
 from ..log.log import API_Logging
 from ..schemas.responses import SuccessResponse, InfoResponse, ErrorResponse, BaseError, BaseResponse

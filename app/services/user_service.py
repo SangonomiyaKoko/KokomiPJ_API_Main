@@ -1,5 +1,7 @@
 import aiomysql
-from typing import Dict, Any
+from aiomysql.pool import Pool
+from aiomysql.connection import Connection
+from aiomysql.cursors import Cursor
 from . import mysql_pool, API_Logging
 from . import SuccessResponse, InfoResponse, ErrorResponse, BaseError
 
@@ -15,10 +17,13 @@ class API_Auth:
             INSERT INTO api_users (username, password, role)
             VALUES (%s, %s, %s)
             '''
+            mysql_client: Pool = mysql_pool.pool
             params = (username, password, roles)
-            async with mysql_pool.pool.acquire() as conn:
+            async with mysql_client.acquire() as conn:
+                conn: Connection
                 await conn.select_db('auth_db')
                 async with conn.cursor() as cursor:
+                    cursor: Cursor
                     await cursor.execute(
                         query, 
                         params
@@ -59,9 +64,12 @@ class API_Auth:
             WHERE username = %s
             '''
             params = (username,)
-            async with mysql_pool.pool.acquire() as conn:
+            mysql_client: Pool = mysql_pool.pool
+            async with mysql_client.acquire() as conn:
+                conn: Connection
                 await conn.select_db('auth_db')
                 async with conn.cursor() as cursor:
+                    cursor: Cursor
                     await cursor.execute(
                         query,
                         params
@@ -143,9 +151,12 @@ class API_Auth:
             WHERE username = %s
             '''
             params = (username,)
+            mysql_client: Pool = mysql_pool.pool
             async with mysql_pool.pool.acquire() as conn:
+                conn: Connection
                 await conn.select_db('auth_db')
                 async with conn.cursor() as cursor:
+                    cursor: Cursor
                     result = await cursor.execute(
                         query,
                         params

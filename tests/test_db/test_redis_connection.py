@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 import traceback
 sys.path.append('F:\Kokomi_API_Main')
@@ -43,4 +45,5 @@ async def test_redis_command():
             await redis_pool.close_pool()
             print('Close the redis connection')
 
-asyncio.run(test_redis_command())
+if __name__ == "__main__":
+    asyncio.run(test_redis_command())
