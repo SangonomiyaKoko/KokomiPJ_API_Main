@@ -27,7 +27,7 @@ class API_Tracker:
     def __del_daily_key(self):
         del exists_daily_key[0]
 
-    async def record_api_call(self):
+    async def record_api_call(self, extra: str = None):
         """
         Record the current interface calls to Redis and update the number of requests per hour and day.
         """
@@ -52,8 +52,7 @@ class API_Tracker:
                     pipe.execute_command("EXPIRE", daily_key, 31*24*60*60)
                     self.__add_daily_key(daily_key)
                     params.append(["EXPIRE", daily_key, 31*24*60*60])
-                a = await pipe.execute()
-                return a
+                await pipe.execute()
         except Exception as e:
             error_info = traceback.format_exc()
             track_id = API_Logging().write_redis_error(

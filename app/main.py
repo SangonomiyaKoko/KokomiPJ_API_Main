@@ -11,7 +11,6 @@ from .db.redis import redis_pool
 from .api.root.urls import router as root_router
 import uvicorn
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:

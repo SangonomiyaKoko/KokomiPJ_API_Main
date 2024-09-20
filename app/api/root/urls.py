@@ -2,6 +2,7 @@
 from fastapi import APIRouter, BackgroundTasks
 from pydantic import BaseModel
 from .scripts.api_users import API_Users
+from . import API_Tracker
 router = APIRouter()    
 
 class ApiUser(BaseModel):
@@ -32,22 +33,25 @@ async def getApiStatus(
 
 
 @router.get('/api-users')
-async def get_api_users():
+async def get_api_users(background_tasks: BackgroundTasks):
     result = await API_Users.get_api_user()
+    background_tasks.add_task(func=API_Tracker().record_api_call)
     return result
 
 @router.post('/api-users')
-async def add_api_user(user: ApiUser):
+async def add_api_user(user: ApiUser, background_tasks: BackgroundTasks):
     result = await API_Users.add_api_user(
         username=user.username,
         password=user.password,
         roles=user.roles
     )
+    background_tasks.add_task(func=API_Tracker().record_api_call)
     return result
 
 @router.delete('/api-users/{username}')
-async def delete_api_user(username: str):
+async def delete_api_user(username: str, background_tasks: BackgroundTasks):
     result = await API_Users.del_api_user(
         username=username
     )
+    background_tasks.add_task(func=API_Tracker().record_api_call)
     return result
