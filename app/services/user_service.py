@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import aiomysql
 from aiomysql.pool import Pool
 from aiomysql.connection import Connection
@@ -28,7 +30,7 @@ class API_Auth:
                         query, 
                         params
                     )
-                    await conn.commit()
+                await conn.commit()
             result = InfoResponse(message='APIUSER ADDED SUCCESSFULLY')
             return result
         except aiomysql.MySQLError as e:
@@ -114,9 +116,12 @@ class API_Auth:
             FROM api_users
             '''
             params = None
-            async with mysql_pool.pool.acquire() as conn:
+            mysql_client: Pool = mysql_pool.pool
+            async with mysql_client.acquire() as conn:
+                conn: Connection
                 await conn.select_db('auth_db')
                 async with conn.cursor() as cursor:
+                    cursor: Cursor
                     await cursor.execute(
                         query
                     )

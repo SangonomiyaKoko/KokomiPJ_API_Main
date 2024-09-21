@@ -1,4 +1,4 @@
-# Kokomi - RootAPI Doc
+# Kokomi - RootAPI Docs
 
 ### Functions: used by administrators to manage interface users and view interface call data
 
@@ -23,7 +23,7 @@
 | Parameter name  | Type     | Required | Description                                                         |
 |-----------------|----------|----------|---------------------------------------------------------------------|
 | `Content-Type`  | `string` | ❌      | Request content type, fixed to `application/json`                   |
-| `Authorization` | `string` | ✅      | Token authentication is required, the format is `Bearer {token}` |
+| `Authorization` | `string` | ✅      | Token authentication is required, the format is `Bearer {token}`    |
 
 #### 2. **Params**
 

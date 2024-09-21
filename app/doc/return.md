@@ -44,3 +44,4 @@
 | 4 | APIUSER ALREADY EXISTS | The api user already exists, adding failed |
 | 6 | APIUSER DELETED SUCCESSFULLY | API user deleted successfully |
 | 7 | APIUSER NOT FOUND | API user not found, Deletion failed |
+| 8 | APPUSER ADDED SUCCESSFULLY| APP user added successfully |
