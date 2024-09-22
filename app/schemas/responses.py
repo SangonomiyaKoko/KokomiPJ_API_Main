@@ -22,7 +22,7 @@ class BaseResponse:
         """
         Custom string representation of the BaseResponse object.
         """
-        return f"BaseResponse(status={self.status}, message={self.message}, data={self.data})"
+        return f"<BaseResponse(status={self.status}, message={self.message}, data={self.data})>"
     
 
 class BaseError:
@@ -43,7 +43,7 @@ class BaseError:
         """
         Custom string representation of the BaseError object.
         """
-        return f"BaseError(error_info={self.error_info}, track_id={self.track_id})"
+        return f"<BaseError(error_info={self.error_info}, track_id={self.track_id})>"
 
 class SuccessResponse(BaseResponse):
     def __init__(self, data: Any = None) -> None:
@@ -60,7 +60,7 @@ class SuccessResponse(BaseResponse):
         """
         Custom string representation for error response, starting with 'Error'.
         """
-        return f"SuccessResponse(status={self.status}, message={self.message}, data={self.data})"
+        return f"<SuccessResponse(status={self.status}, message={self.message}, data={self.data})>"
 
 class InfoResponse(BaseResponse):
     def __init__(self, message: str, data: Any = None) -> None:
@@ -77,7 +77,7 @@ class InfoResponse(BaseResponse):
         """
         Custom string representation for error response, starting with 'Error'.
         """
-        return f"InfoResponse(status={self.status}, message={self.message}, data={self.data})"
+        return f"<InfoResponse(status={self.status}, message={self.message}, data={self.data})>"
 
 class ErrorResponse(BaseResponse):
     def __init__(self, message: str, data: BaseError) -> None:
@@ -94,7 +94,7 @@ class ErrorResponse(BaseResponse):
         """
         Custom string representation for error response, starting with 'Error'.
         """
-        return f"ErrorResponse(status={self.status}, message={self.message}, data={self.data})"
+        return f"<ErrorResponse(status={self.status}, message={self.message}, data={self.data})>"
 
 # class User:
 #     def __init__(self, user_id: int, username: str, email: str):

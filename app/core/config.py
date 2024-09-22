@@ -14,7 +14,13 @@ class Settings(BaseSettings):
     REDIS_HOST: str
     REDIS_PORT: int
     REDIS_PASSWORD: str
+
+    SQLITE_PATH: str
     
+    WG_API_TOKEN: str
+    LESTA_API_TOKEN: str
+    CN_API_TOKEN: str
+
     class Config:
         env_file = ".env"
 

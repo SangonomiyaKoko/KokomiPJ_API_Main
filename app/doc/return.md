@@ -45,3 +45,4 @@
 | 6 | APIUSER DELETED SUCCESSFULLY | API user deleted successfully |
 | 7 | APIUSER NOT FOUND | API user not found, Deletion failed |
 | 8 | APPUSER ADDED SUCCESSFULLY| APP user added successfully |
+| 9 | APPUSER UPDATE SUCCESSFULLY | APP user update successfully (querys, nickname or clan) |

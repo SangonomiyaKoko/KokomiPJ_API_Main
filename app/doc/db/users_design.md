@@ -25,13 +25,30 @@ INSERT INTO servers (id, region) VALUES
 #### Create SQL:
 ```sql
 CREATE TABLE user_basic (
-    account_id BIGINT(11) UNSIGNED NOT NULL UNIQUE,
-    region INT NOT NULL,
+    account_id BIGINT NOT NULL,
+    region TINYINT NOT NULL,
     nickname VARCHAR(255) DEFAULT NULL,
     querys INT DEFAULT 0,
-    clan_id BIGINT(11) UNSIGNED DEFAULT NULL,
+    clan_id BIGINT DEFAULT NULL,
     clan_update_time INT DEFAULT 0,
+    cache_update_time INT DEFAULT 0,
     PRIMARY KEY (account_id),
-    INDEX (account_id)
+    UNIQUE INDEX idx_region_account_id (region, account_id) -- Add region + account_id composite unique index
+);
+```
+
+### Table_2: user_info
+
+#### Create SQL:
+```sql
+CREATE TABLE user_info (
+    account_id BIGINT NOT NULL,
+    region TINYINT NOT NULL,
+    update_time INT DEFAULT 0,
+    profite TINYINT NOT NULL DEFAULT 0,
+    leveling_points INT NOT NULL DEFAULT 0,
+    last_battle_time INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (account_id),
+    UNIQUE INDEX idx_region_account_id (region, account_id) 
 );
 ```

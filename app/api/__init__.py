@@ -11,3 +11,4 @@ from ..core.secruity import API_Secruity
 from ..log.log import API_Logging
 from ..db.mysql import mysql_pool
 from ..db.redis import redis_pool
+from ..const.region import REGION_IDS
