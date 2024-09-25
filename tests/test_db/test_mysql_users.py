@@ -6,13 +6,13 @@ sys.path.append('F:\Kokomi_API_Main')
 
 import asyncio
 from app.db.mysql import mysql_pool
-from app.api.app_electron.model.user import User_Basic_DB
+from app.api.app_electron.model.users import User_Basic_DB
 
 async def test_users_get_user():
     try:
         await mysql_pool.init_pool()
         user_db = User_Basic_DB()
-        result = await user_db.update_user_query(account_id='2023619512',server='asia')
+        result = await user_db.update_user_query(account_id='2023619512',region='asia')
         print(result.to_dict())
     except:
         traceback.print_exc()

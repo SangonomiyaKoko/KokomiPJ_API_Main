@@ -37,12 +37,14 @@
 # Retrun message list
 | No | Message | Description |
 |:-----:|-----|-----|
-| 1 | SUCCESS | ok |
-| 2 | PROGRAM ERROR | Errors occur when the program is running |
-| 5 | MYSQL ERROR | Error encountered when querying Mysql |
-| 3 | APIUSER ADDED SUCCESSFULLY | API user added successfully |
-| 4 | APIUSER ALREADY EXISTS | The api user already exists, adding failed |
-| 6 | APIUSER DELETED SUCCESSFULLY | API user deleted successfully |
-| 7 | APIUSER NOT FOUND | API user not found, Deletion failed |
-| 8 | APPUSER ADDED SUCCESSFULLY| APP user added successfully |
-| 9 | APPUSER UPDATE SUCCESSFULLY | APP user update successfully (querys, nickname or clan) |
+| 1  | SUCCESS | ok |
+| 2  | PROGRAM ERROR | Errors occur when the program is running |
+| 5  | MYSQL ERROR | Error encountered when querying Mysql |
+| 3  | APIUSER ADDED SUCCESSFULLY | API user added successfully |
+| 4  | APIUSER ALREADY EXISTS | The api user already exists, adding failed |
+| 6  | APIUSER DELETED SUCCESSFULLY | API user deleted successfully |
+| 7  | APIUSER NOT FOUND | API user not found, Deletion failed |
+| 8  | APPUSER ADDED SUCCESSFULLY| APP user added successfully |
+| 9  | APPUSER UPDATE SUCCESSFULLY | APP user update successfully (querys, nickname or clan) |
+| 10 | APPCLAN ADDED SUCCESSFULLY | APP clan added successfully |
+| 11 | APPCLAN UPDATE SUCCESSFULLY |  APP clan update successfully (tag, color and time) |

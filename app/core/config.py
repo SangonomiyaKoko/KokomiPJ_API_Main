@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     WG_API_TOKEN: str
     LESTA_API_TOKEN: str
     CN_API_TOKEN: str
+    CALL_API_TIMEOUT: int
+
+    CLAN_CACHE_VALIDITY: int
+    CLAN_CACHE_VALIDITY_2: int
 
     class Config:
         env_file = ".env"
