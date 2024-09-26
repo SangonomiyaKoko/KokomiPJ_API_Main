@@ -48,3 +48,4 @@
 | 9  | APPUSER UPDATE SUCCESSFULLY | APP user update successfully (querys, nickname or clan) |
 | 10 | APPCLAN ADDED SUCCESSFULLY | APP clan added successfully |
 | 11 | APPCLAN UPDATE SUCCESSFULLY |  APP clan update successfully (tag, color and time) |
+| 12 | VERSON ERROR | Verson not support now |

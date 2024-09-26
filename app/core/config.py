@@ -5,6 +5,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     API_HOST: str
     API_PORT: int
+    VERSON_LIST: str
 
     MYSQL_HOST: str
     MYSQL_PORT: int

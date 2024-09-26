@@ -15,7 +15,7 @@ async def test_redis_ping():
         await redis_pool.init_pool()
         redis_client = redis_pool.pool
         response = await redis_client.ping()
-        if response is True:  # Redis返回True表示连接正常
+        if response is True:
             print('Redis Ping test succeeded')
     except Exception as e:
         print(f"Redis connection failed, error message: {e}")

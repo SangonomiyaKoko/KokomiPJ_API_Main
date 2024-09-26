@@ -88,7 +88,7 @@ class Clan_Basic_DB:
                         result = SuccessResponse(
                             data = clan
                         )
-                        add_result = await self.__add_clan(
+                        add_result = await self._add_clan(
                             clan=clan
                         )
                         if add_result.status != 'ok':
@@ -123,14 +123,14 @@ class Clan_Basic_DB:
             )
             return result
     
-    async def __add_clan(
+    async def _add_clan(
         self,
         clan: Clan_Basic
     ):
         try:
             result = None
             query = '''
-            INSERT INTO user_basic (
+            INSERT INTO clan_basic (
                 clan_id, 
                 region, 
                 clan_tag, 

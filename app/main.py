@@ -9,6 +9,7 @@ from .core.secruity import API_Secruity
 from .db.mysql import mysql_pool
 from .db.redis import redis_pool
 from .api.root.urls import router as root_router
+from .api.app_electron.urls import router as electron_router
 import uvicorn
 
 @asynccontextmanager
@@ -73,6 +74,13 @@ app.include_router(
     root_router, 
     prefix="/root", 
     tags=['Root Interface'],
+    dependencies=[Depends(Permission.check_root_permission)]
+)
+
+app.include_router(
+    electron_router, 
+    prefix="/elec", 
+    tags=['Electron APP Interface'],
     dependencies=[Depends(Permission.check_root_permission)]
 )
 

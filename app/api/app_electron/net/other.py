@@ -18,25 +18,6 @@ async def fetch_data(url):
                 return SuccessResponse(
                     data = requset_result['data']
                 )
-            elif (
-                '/clans/' in url
-                and requset_code == 404
-            ):
-                return SuccessResponse(
-                    data = {
-                        "clan_id": None,
-                        "role": None, 
-                        "joined_at": None, 
-                        "clan": {},
-                    }
-                )
-            elif (
-                '/accounts/search/' in url
-                and requset_code in [500, 503]
-            ):
-                return SuccessResponse(
-                    data = []
-                )
             elif requset_code == 404:
                 return InfoResponse(
                     message='USER NOT EXIST'
@@ -69,33 +50,18 @@ async def fetch_data(url):
             data=error
         )
 
-
-async def get_basic_data(
-    aid: str,
-    server: str,
-    use_ac: bool = False,
-    ac: str = None
-):
-    urls = [
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/' + (f'?ac={ac}' if use_ac else '')
-    ]
-    tasks = []
-    responses = []
-    async with asyncio.Semaphore(len(urls)):
-        for url in urls:
-            tasks.append(fetch_data(url))
-        responses = await asyncio.gather(*tasks)
-        return responses
-    
-async def get_basic_and_clan_data(
+async def get_other_data(
     aid: str,
     server: str,
     use_ac: bool = False,
     ac: str = None
 ) -> SuccessResponse | InfoResponse | ErrorResponse:
     urls = [
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/' + (f'?ac={ac}' if use_ac else ''),
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/clans/'
+        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp/' + (f'?ac={ac}' if use_ac else ''),
+        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp_solo/' + (f'?ac={ac}' if use_ac else ''),
+        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp_div2/' + (f'?ac={ac}' if use_ac else ''),
+        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp_div3/' + (f'?ac={ac}' if use_ac else ''),
+        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/rank_solo/' + (f'?ac={ac}' if use_ac else '')
     ]
     tasks = []
     responses = []
@@ -104,4 +70,3 @@ async def get_basic_and_clan_data(
             tasks.append(fetch_data(url))
         responses = await asyncio.gather(*tasks)
         return responses
-

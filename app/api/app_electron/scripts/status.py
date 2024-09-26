@@ -2,13 +2,15 @@
 
 import traceback
 import time
+import gc
 from typing import TypedDict
-from ..model.users import User, User_Basic_DB
+from ..model.users import User, User_Basic_DB, User_Info_DB
 from ..model.clans import Clan, Clan_Basic_DB
 from ..net.basic import get_basic_data, get_basic_and_clan_data
 from .. import CLAN_BLACKLIST, USER_BLACKLIST, GAME_CONST
 from .. import settings
-from .. import SuccessResponse, InfoResponse, ErrorResponse
+from .. import API_Logging
+from .. import SuccessResponse, InfoResponse, ErrorResponse, BaseError
 
 class user_info(TypedDict):
     aid: str
@@ -28,21 +30,26 @@ async def main(
     aid: str,
     region: str,
     lang: str,
+    verson: str,
     opt_pr: bool = True,
     opt_ac: bool = True,
     ac: str = None
 ) -> dict:
     try:
         params = []
-        result = {}
-        user_basic_db = User_Basic_DB()
-        clan_basic_db = Clan_Basic_DB()
+        result = None
         if aid in USER_BLACKLIST:
             result = InfoResponse(message='USER IN BLACKLIST')
             return result
-        user_result: SuccessResponse | ErrorResponse = user_basic_db.get_user_data(
+        if verson not in settings.VERSON_LIST:
+            result = InfoResponse(message='VERSON ERROR')
+            return result
+        user_basic_db = User_Basic_DB()
+        user_info_db = User_Info_DB()
+        clan_basic_db = Clan_Basic_DB()
+        user_result: SuccessResponse | ErrorResponse = await user_basic_db.get_user_data(
             account_id=aid,
-            server=region
+            region=region
         )
         if user_result.status != 'ok':
             return user_result
@@ -58,7 +65,7 @@ async def main(
         ):
             clan_id = user_basic_data['clan_id']
             if clan_id:
-                clan_result: SuccessResponse | ErrorResponse = clan_basic_db.get_clan_data(
+                clan_result: SuccessResponse | ErrorResponse = await clan_basic_db.get_clan_data(
                     clan_id = clan_id,
                     region = region
                 )
@@ -73,7 +80,7 @@ async def main(
                     cid = clan_id
                     clan_tag = clan_basic_data['clan_tag']
                     clan_color = clan_basic_data['clan_color']
-        if clan_cache_vaild:
+        if not clan_cache_vaild:
             call_api_data = await get_basic_and_clan_data(
                 aid=aid,
                 server=region,
@@ -85,18 +92,18 @@ async def main(
                     return response
             user_data: dict = call_api_data[0].data
             clan_data: dict = call_api_data[1].data
-            if clan_data['data'].get('clan_id', None) != None:
-                cid = clan_data['data']['clan_id']
-                clan_tag = clan_data['data']['clan']['tag']
-                clan_color = GAME_CONST.CLAN_COLOR_INDEX.get(clan_data['data']['clan']['color'],4)
-                clan_basic_db.update_clan_info(
+            if clan_data.get('clan_id', None) != None:
+                cid = clan_data['clan_id']
+                clan_tag = clan_data['clan']['tag']
+                clan_color = GAME_CONST.CLAN_COLOR_INDEX.get(clan_data['clan']['color'],4)
+                await clan_basic_db.update_clan_info(
                     clan_id=cid,
                     region=region,
                     clan_tag=clan_tag,
                     clan_color=clan_color,
                     update_time=current_time
                 )
-            user_basic_db.update_user_clan(
+            await user_basic_db.update_user_clan(
                 account_id=aid,
                 region=region,
                 clan_id=cid,
@@ -113,13 +120,63 @@ async def main(
                 if type(response) != SuccessResponse:
                     return response
             user_data = call_api_data[0].data
+        if cid in CLAN_BLACKLIST:
+            result = InfoResponse(message='CLAN IN BLACKLIST')
+            return result
+        user_hidden = False
+        user_lp = 0
+        user_lbt = 0
+        nickname = user_data[aid]['name']
+        if nickname != user_basic_data['nickname']:
+            await user_basic_db.update_user_name(
+                account_id=aid,
+                region=region,
+                nickname=nickname
+            )
+        if 'hidden_profile' in user_data[aid]:
+            user_hidden = True
+        if (
+            user_data[aid]['statistics'] == {} or 
+            user_data[aid]['statistics']['basic'] == {}
+        ):
+            pass
+        else:
+            basic_data: dict = user_data[aid]['statistics']['basic']
+            user_lp = basic_data.get('leveling_points', 0)
+            user_lbt = basic_data.get('last_battle_time',0)
+        await user_info_db.check_user_data(
+            account_id=aid,
+            region=region,
+            update_time=current_time,
+            profite=user_hidden,
+            leveling_points=user_lp,
+            last_battle_time=user_lbt
+        )
 
+        # main 
+        result = SuccessResponse(data={})
 
-
-        
-        
-    except Exception:
-        traceback.print_exc()
-        ...
+        await user_basic_db.update_user_query(
+            account_id=aid,
+            region=region
+        )
+        return result
+    except Exception as e:
+        error_info = traceback.format_exc()
+        track_id = API_Logging().write_api_error(
+            error_file=__file__,
+            error_params=params,
+            error_name=str(type(e).__name__),
+            error_info=error_info
+        )
+        error = BaseError(
+            error_info=str(type(e).__name__),
+            track_id=track_id
+        )
+        result = ErrorResponse(
+            message='PROGRAM ERROR',
+            data=error
+        )
+        return result
     finally:
-        ...
+        gc.collect()

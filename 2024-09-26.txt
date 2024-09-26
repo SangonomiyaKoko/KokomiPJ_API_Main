@@ -1,0 +1,173 @@
+-------------------------------------------------------------------------------------------------------------
+>Platform:     MYSQL
+>Track ID:     7D35591F6C9AF8A3E296116E99A0CA35
+>Error Time:   2024-09-26 21:51:38
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\model\users.py
+>Error Code:   MYSQL_ERROR_1064
+>Error Info:   You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.cache_update_time
+            FROM 
+                user_basic user
+           ' at line 7
+>Error SQL: 
+            SELECT 
+                user.account_id, 
+                region.region, 
+                user.nickname,
+                user.clan_id,
+                user.clan_update_time
+                user.cache_update_time
+            FROM 
+                user_basic user
+            JOIN 
+                servers region
+            ON 
+                user.region = region.id
+            WHERE
+                user.region = %s AND user.account_id = %s
+            (1, 2023619512)
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     MYSQL
+>Track ID:     48FFC2F0A325E54E3C6D531EC594412D
+>Error Time:   2024-09-26 21:54:53
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\model\users.py
+>Error Code:   MYSQL_ERROR_1064
+>Error Info:   You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.cache_update_time
+            FROM 
+                user_basic user
+           ' at line 7
+>Error SQL: 
+            SELECT 
+                user.account_id, 
+                region.region, 
+                user.nickname,
+                user.clan_id,
+                user.clan_update_time
+                user.cache_update_time
+            FROM 
+                user_basic user
+            INNER JOIN 
+                servers region
+            ON 
+                user.region = region.id
+            WHERE
+                user.region = %s AND user.account_id = %s
+            (1, 2023619512)
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     MYSQL
+>Track ID:     80B1B11E37AE86A81B621D48EB679067
+>Error Time:   2024-09-26 22:12:56
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\model\users.py
+>Error Code:   MYSQL_ERROR_1064
+>Error Info:   You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.last_battle_time
+            FROM 
+                user_info user
+            J' at line 7
+>Error SQL: 
+            SELECT 
+                user.account_id, 
+                region.region, 
+                user.update_time,
+                user.profite,
+                user.leveling_points
+                user.last_battle_time
+            FROM 
+                user_info user
+            JOIN 
+                servers region
+            ON 
+                user.region = region.id
+            WHERE
+                user.region = %s AND user.account_id = %s
+            (1, 2023619512)
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     MYSQL
+>Track ID:     9F214DD37E28DA0A33E4DCCF10DBB67E
+>Error Time:   2024-09-26 22:20:16
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\model\clans.py
+>Error Code:   MYSQL_ERROR_1146
+>Error Info:   Table 'clans.user_basic' doesn't exist
+>Error SQL: 
+            INSERT INTO user_basic (
+                clan_id, 
+                region, 
+                clan_tag, 
+                clan_color,
+                update_time
+            )
+            VALUES (
+                %s, %s, %s, %s, %s
+            );
+            (2000012345, 1, 'UNDEFINED', None, 0)
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     MYSQL
+>Track ID:     6BBD35230899892BB39592CA5BA5808F
+>Error Time:   2024-09-26 22:45:47
+>Error File:   F:\Kokomi_API_Main\app\services\user_service.py
+>Error Code:   MYSQL_ERROR_2013
+>Error Info:   Lost connection to MySQL server during query ([WinError 121] 信号灯超时时间已到)
+>Error SQL: 
+            SELECT username, password, role
+            FROM api_users
+            WHERE username = %s
+            ('root',)
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     C9F13006BAD9670844ACD801A2E77F6A
+>Error Time:   2024-09-26 22:45:48
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py
+>Error Name:   TypeError
+>Error Params: []
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py", line 47, in main
+    user_result: SuccessResponse | ErrorResponse = user_basic_db.get_user_data(
+TypeError: User_Basic_DB.get_user_data() got an unexpected keyword argument 'server'
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     FB38AC28D71CAAC3995A89D51624E6AB
+>Error Time:   2024-09-26 22:46:19
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py
+>Error Name:   AttributeError
+>Error Params: []
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py", line 51, in main
+    if user_result.status != 'ok':
+AttributeError: 'coroutine' object has no attribute 'status'
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     CA26F75396D9F68E25E0D559CCD4B501
+>Error Time:   2024-09-26 22:50:34
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py
+>Error Name:   KeyError
+>Error Params: []
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py", line 126, in main
+    nickname = user_data['data'][aid]['name']
+KeyError: 'data'
+
+-------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     C16412EB3BECE397D0E040FAFCB2DD29
+>Error Time:   2024-09-26 22:51:15
+>Error File:   F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py
+>Error Name:   KeyError
+>Error Params: []
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\app_electron\scripts\status.py", line 127, in main
+    nickname = user_data['data'][aid]['name']
+KeyError: 'data'
+
+-------------------------------------------------------------------------------------------------------------
