@@ -76,8 +76,9 @@ async def get_basic_data(
     use_ac: bool = False,
     ac: str = None
 ):
+    api_url = API_CONST.VORTEX_API_URL.get(server)
     urls = [
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/' + (f'?ac={ac}' if use_ac else '')
+        f'{api_url}/api/accounts/{aid}/' + (f'?ac={ac}' if use_ac else '')
     ]
     tasks = []
     responses = []
@@ -93,9 +94,10 @@ async def get_basic_and_clan_data(
     use_ac: bool = False,
     ac: str = None
 ) -> SuccessResponse | InfoResponse | ErrorResponse:
+    api_url = API_CONST.VORTEX_API_URL.get(server)
     urls = [
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/' + (f'?ac={ac}' if use_ac else ''),
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/clans/'
+        f'{api_url}/api/accounts/{aid}/' + (f'?ac={ac}' if use_ac else ''),
+        f'{api_url}/api/accounts/{aid}/clans/'
     ]
     tasks = []
     responses = []

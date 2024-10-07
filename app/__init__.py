@@ -1,5 +1,5 @@
-# import sys
-# import os
-# parent_file_path = os.path.dirname(os.path.dirname(__file__))
-# print(parent_file_path)
-# sys.path.append(parent_file_path)
+# -*- coding: utf-8 -*-
+
+import os
+
+PROJECT_PATH = os.path.dirname(__file__)

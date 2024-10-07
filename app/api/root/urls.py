@@ -12,7 +12,7 @@ class ApiUser(BaseModel):
 
 @router.get("/status")
 async def getApiStatus(
-    params: str
+    params: str = 1
 ):
     """
     Get server status.

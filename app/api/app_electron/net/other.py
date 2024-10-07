@@ -56,12 +56,13 @@ async def get_other_data(
     use_ac: bool = False,
     ac: str = None
 ) -> SuccessResponse | InfoResponse | ErrorResponse:
+    api_url = API_CONST.VORTEX_API_URL.get(server)
     urls = [
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp/' + (f'?ac={ac}' if use_ac else ''),
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp_solo/' + (f'?ac={ac}' if use_ac else ''),
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp_div2/' + (f'?ac={ac}' if use_ac else ''),
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/pvp_div3/' + (f'?ac={ac}' if use_ac else ''),
-        f'{API_CONST.VORTEX_API_URL.get(server)}/api/accounts/{aid}/ships/rank_solo/' + (f'?ac={ac}' if use_ac else '')
+        f'{api_url}/api/accounts/{aid}/ships/pvp/' + (f'?ac={ac}' if use_ac else ''),
+        f'{api_url}/api/accounts/{aid}/ships/pvp_solo/' + (f'?ac={ac}' if use_ac else ''),
+        f'{api_url}/api/accounts/{aid}/ships/pvp_div2/' + (f'?ac={ac}' if use_ac else ''),
+        f'{api_url}/api/accounts/{aid}/ships/pvp_div3/' + (f'?ac={ac}' if use_ac else ''),
+        f'{api_url}/api/accounts/{aid}/ships/rank_solo/' + (f'?ac={ac}' if use_ac else '')
     ]
     tasks = []
     responses = []

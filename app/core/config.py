@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     API_PORT: int
     VERSON_LIST: str
 
+    PROXY: bool
+
     MYSQL_HOST: str
     MYSQL_PORT: int
     MYSQL_USERNAME: str

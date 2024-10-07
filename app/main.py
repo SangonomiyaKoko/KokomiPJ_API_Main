@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import uvicorn
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from contextlib import asynccontextmanager
+
 from .core.config import settings
 from .common.dependencies import Permission, get_user
 from .core.secruity import API_Secruity
@@ -10,7 +12,6 @@ from .db.mysql import mysql_pool
 from .db.redis import redis_pool
 from .api.root.urls import router as root_router
 from .api.app_electron.urls import router as electron_router
-import uvicorn
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

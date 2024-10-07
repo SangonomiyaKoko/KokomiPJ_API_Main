@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import traceback
-sys.path.append('F:\Kokomi_API_Main')
 
 import asyncio
 from app.services.api_tracking import API_Tracker

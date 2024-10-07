@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import time
+import os
 import hashlib
+
+from .. import PROJECT_PATH
 
 class API_Logging:
     _instance = None
@@ -27,7 +30,7 @@ class API_Logging:
         form_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         track_id = self.calculate_md5((form_time + error_name).encode()).upper()
         now_day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-        with open(f'{now_day}.txt', "a", encoding="utf-8") as f:
+        with open(os.path.join(PROJECT_PATH, 'log', f'{now_day}.txt'), "a", encoding="utf-8") as f:
             f.write('-------------------------------------------------------------------------------------------------------------\n')
             f.write(f">Platform:     API\n")
             f.write(f">Track ID:     {track_id}\n")
@@ -52,7 +55,7 @@ class API_Logging:
         form_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         track_id = self.calculate_md5((form_time + error_code).encode()).upper()
         now_day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-        with open(f'{now_day}.txt', "a", encoding="utf-8") as f:
+        with open(os.path.join(PROJECT_PATH, 'log', f'{now_day}.txt'), "a", encoding="utf-8") as f:
             f.write('-------------------------------------------------------------------------------------------------------------\n')
             f.write(f">Platform:     MYSQL\n")
             f.write(f">Track ID:     {track_id}\n")
@@ -75,7 +78,7 @@ class API_Logging:
         form_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         track_id = self.calculate_md5((form_time + error_name).encode()).upper()
         now_day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-        with open(f'{now_day}.txt', "a", encoding="utf-8") as f:
+        with open(os.path.join(PROJECT_PATH, 'log', f'{now_day}.txt'), "a", encoding="utf-8") as f:
             f.write('-------------------------------------------------------------------------------------------------------------\n')
             f.write(f">Platform:     REDIS\n")
             f.write(f">Track ID:     {track_id}\n")
