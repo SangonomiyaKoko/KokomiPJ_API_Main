@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
 
 from fastapi import APIRouter, BackgroundTasks
 from pydantic import BaseModel
+
 from .scripts.api_users import API_Users
+from .scripts.app_user_basic import APP_User_Basic
 from . import API_Tracker
+
 router = APIRouter()    
 
 class ApiUser(BaseModel):
@@ -33,13 +37,18 @@ async def getApiStatus(
 
 
 @router.get('/api-users')
-async def get_api_users(background_tasks: BackgroundTasks):
+async def get_api_users(
+    background_tasks: BackgroundTasks
+):
     result = await API_Users.get_api_user()
     background_tasks.add_task(func=API_Tracker().record_api_call)
     return result
 
 @router.post('/api-users')
-async def add_api_user(user: ApiUser, background_tasks: BackgroundTasks):
+async def add_api_user(
+    background_tasks: BackgroundTasks,
+    user: ApiUser
+):
     result = await API_Users.add_api_user(
         username=user.username,
         password=user.password,
@@ -49,9 +58,33 @@ async def add_api_user(user: ApiUser, background_tasks: BackgroundTasks):
     return result
 
 @router.delete('/api-users/{username}')
-async def delete_api_user(username: str, background_tasks: BackgroundTasks):
+async def delete_api_user(
+    background_tasks: BackgroundTasks,
+    username: str
+):
     result = await API_Users.del_api_user(
         username=username
+    )
+    background_tasks.add_task(func=API_Tracker().record_api_call)
+    return result
+
+@router.get('/app-user-basic/counts')
+async def get_api_users(
+    background_tasks: BackgroundTasks
+):
+    result = await APP_User_Basic.get_user_counts()
+    background_tasks.add_task(func=API_Tracker().record_api_call)
+    return result
+
+@router.get('/app-user-basic/{region}/{aid}')
+async def get_api_users(
+    background_tasks: BackgroundTasks,
+    aid: str,
+    region: str
+):
+    result = await APP_User_Basic.get_user_data_by_aid(
+        aid = aid,
+        region = region
     )
     background_tasks.add_task(func=API_Tracker().record_api_call)
     return result

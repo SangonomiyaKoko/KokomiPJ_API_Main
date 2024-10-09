@@ -16,6 +16,9 @@ Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML
 async def proxy(
     url: str
 ):
+    '''
+    接口请求代理
+    '''
     if 'api' in url:
         data = None
         status_code = None

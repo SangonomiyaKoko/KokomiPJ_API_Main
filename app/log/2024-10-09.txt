@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------------------------------------
+>Platform:     API
+>Track ID:     5F0218E7100C19761ADC8B0426503221
+>Error Time:   2024-10-09 13:13:34
+>Error File:   F:\Kokomi_API_Main\app\api\root\scripts\app_user_basic.py
+>Error Name:   TypeError
+>Error Params: []
+>Error Info: 
+Traceback (most recent call last):
+  File "F:\Kokomi_API_Main\app\api\root\scripts\app_user_basic.py", line 48, in get_user_data_by_aid
+    result: SuccessResponse | InfoResponse = await User_Basic_DB.get_user_data_by_aid(
+TypeError: User_Basic_DB.get_user_data_by_aid() missing 1 required positional argument: 'self'
+
+-------------------------------------------------------------------------------------------------------------

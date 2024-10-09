@@ -2,8 +2,8 @@
 
 import traceback
 import time
-import gc
 from typing import TypedDict
+
 from ..model.users import User, User_Basic_DB, User_Info_DB
 from ..model.clans import Clan, Clan_Basic_DB
 from ..net.basic import get_basic_data, get_basic_and_clan_data
@@ -35,9 +35,9 @@ async def main(
     opt_ac: bool = True,
     ac: str = None
 ) -> dict:
+    params = []
+    result = None
     try:
-        params = []
-        result = None
         if aid in USER_BLACKLIST:
             result = InfoResponse(message='USER IN BLACKLIST')
             return result
@@ -178,8 +178,6 @@ async def main(
             data=error
         )
         return result
-    finally:
-        gc.collect()
 
 
     

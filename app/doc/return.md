@@ -44,7 +44,8 @@
 | 4  | APIUSER ALREADY EXISTS | The api user already exists, adding failed |
 | 6  | APIUSER DELETED SUCCESSFULLY | API user deleted successfully |
 | 7  | APIUSER NOT FOUND | API user not found, Deletion failed |
-| 8  | APPUSER ADDED SUCCESSFULLY| APP user added successfully |
+| 8  | APPUSER ADDED SUCCESSFULLY | APP user added successfully |
+| 8  | APPUSER DELETED SUCCESSFULLY | APP user deleted successfully |
 | 9  | APPUSER UPDATE SUCCESSFULLY | APP user update successfully (querys, nickname or clan) |
 | 10 | APPCLAN ADDED SUCCESSFULLY | APP clan added successfully |
 | 11 | APPCLAN UPDATE SUCCESSFULLY |  APP clan update successfully (tag, color and time) |

@@ -26,11 +26,11 @@ class Verson(str, Enum):
 router = APIRouter()    
 
 
-@router.get('/user-stats')
+@router.get('/user-stats/{region}/{aid}')
 async def get_api_users(
     background_tasks: BackgroundTasks,
-    aid: str = '2023619512',
-    region: ServerName = 'asia',
+    aid: str,
+    region: ServerName,
     lang: Lang = 'en',
     verson: Verson = 'v_1_0_1',
     opt_pr: bool = True,

@@ -9,7 +9,7 @@ from ..services.user_service import API_Auth
 from ..services.api_tracking import API_Tracker
 from ..core.secruity import API_Secruity
 from ..core.config import settings
-from ..log.log import API_Logging
+from ..common.logging import API_Logging
 from ..db.mysql import mysql_pool
 from ..db.redis import redis_pool
 from ..const.region import REGION_IDS

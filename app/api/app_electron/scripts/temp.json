@@ -1,0 +1,186 @@
+{
+    "matchGroup": "pvp",
+    "gameMode": 7,
+    "filtersByShipConfigName": {},
+    "clientVersionFromExe": "13,8,0,8893005",
+    "mapBorder": null,
+    "scenarioUiCategoryId": 0,
+    "eventType": "",
+    "mapDisplayName": "14_Atlantic",
+    "mapId": 7,
+    "clientVersionFromXml": "13,8,0,8893005",
+    "weatherParams": {
+        "0": [
+            "PCOW003_Cloudy"
+        ],
+        "1": [
+            "PCOW005_Evening"
+        ],
+        "2": [
+            "PCOW003_Cloudy",
+            "PCOW006_Storm_Logic"
+        ]
+    },
+    "disabledShipClasses": [],
+    "playersPerTeam": 12,
+    "duration": 1200,
+    "gameTypeGameParamId": 0,
+    "name": "12x12",
+    "scenario": "domination_3point",
+    "playerID": 0,
+    "vehicles": [
+        {
+            "shipId": 4276041424,
+            "relation": 1,
+            "id": 671876225,
+            "name": "Ruthlesschicken"
+        },
+        {
+            "shipId": 4273977328,
+            "relation": 1,
+            "id": 537808900,
+            "name": "AshikagaYoshimasa"
+        },
+        {
+            "shipId": 4074715088,
+            "relation": 2,
+            "id": 537761168,
+            "name": "Code_Disguiser"
+        },
+        {
+            "shipId": 3760142032,
+            "relation": 1,
+            "id": 537721618,
+            "name": "HY201"
+        },
+        {
+            "shipId": 4179572720,
+            "relation": 2,
+            "id": 671852055,
+            "name": "231AP"
+        },
+        {
+            "shipId": 3655284528,
+            "relation": 2,
+            "id": 671684376,
+            "name": "3626245079"
+        },
+        {
+            "shipId": 3760075984,
+            "relation": 1,
+            "id": 671766562,
+            "name": "_Somers"
+        },
+        {
+            "shipId": 3750672112,
+            "relation": 1,
+            "id": 537697955,
+            "name": "Tclzr"
+        },
+        {
+            "shipId": 4179572464,
+            "relation": 2,
+            "id": 671830056,
+            "name": "ReyJFET421"
+        },
+        {
+            "shipId": 3655218960,
+            "relation": 0,
+            "id": 671724842,
+            "name": "SangonomiyaKokomi_"
+        },
+        {
+            "shipId": 4074649040,
+            "relation": 2,
+            "id": 671871788,
+            "name": "Soviet_Khabarovsk"
+        },
+        {
+            "shipId": 4283348976,
+            "relation": 1,
+            "id": 537446213,
+            "name": "Jeheeche"
+        },
+        {
+            "shipId": 4179572464,
+            "relation": 2,
+            "id": 671740744,
+            "name": "Dr_YesOrNo"
+        },
+        {
+            "shipId": 4074682352,
+            "relation": 2,
+            "id": 537489361,
+            "name": "h7a4dhz"
+        },
+        {
+            "shipId": 4282300112,
+            "relation": 2,
+            "id": 537367125,
+            "name": "IJN_Master"
+        },
+        {
+            "shipId": 4074649424,
+            "relation": 2,
+            "id": 671919458,
+            "name": "FUUJIN11"
+        },
+        {
+            "shipId": 4179572688,
+            "relation": 1,
+            "id": 671971301,
+            "name": "ealaker"
+        },
+        {
+            "shipId": 4179572464,
+            "relation": 1,
+            "id": 671915473,
+            "name": "kopdsf21"
+        },
+        {
+            "shipId": 4284396912,
+            "relation": 1,
+            "id": 671824232,
+            "name": "NieMiQWQ"
+        },
+        {
+            "shipId": 3655317296,
+            "relation": 2,
+            "id": 671570797,
+            "name": "pigsneck"
+        },
+        {
+            "shipId": 4178491184,
+            "relation": 2,
+            "id": 537334001,
+            "name": "Fatalis__Hikari"
+        },
+        {
+            "shipId": 3560912592,
+            "relation": 2,
+            "id": 671914098,
+            "name": "Dolaneo"
+        },
+        {
+            "shipId": 3435083760,
+            "relation": 1,
+            "id": 537529211,
+            "name": "NANAVI"
+        },
+        {
+            "shipId": 4074715088,
+            "relation": 1,
+            "id": 671760636,
+            "name": "kungbubu88"
+        }
+    ],
+    "gameType": "RandomBattle",
+    "dateTime": "27.09.2024 13:41:56",
+    "mapName": "spaces/14_Atlantic",
+    "playerName": "SangonomiyaKokomi_",
+    "scenarioConfigId": 59,
+    "teamsCount": 2,
+    "playerVehicle": "PHSD610-Tromp",
+    "battleDuration": 1200,
+    "battleItemTrees": {}
+}

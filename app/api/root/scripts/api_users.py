@@ -1,13 +1,14 @@
-import gc
+# -*- coding: utf-8 -*-
+
 import traceback
+
 from .. import API_Logging, API_Secruity, API_Auth
 from .. import SuccessResponse, InfoResponse, ErrorResponse, BaseError
 
 class API_Users:
-    async def get_api_user(
-    ):
+    async def get_api_user():
         '''
-        Get all API users in Mysql
+        获取所有的api用户
         '''
         try:
             result = None
@@ -31,14 +32,12 @@ class API_Users:
                 data=error
             ).to_dict()
             return result
-        finally:
-            gc.collect()
 
     async def del_api_user(
         username: str
     ):
         '''
-        Deleting API users from MySQL
+        删除api用户
         '''
         try:
             result = None
@@ -64,8 +63,6 @@ class API_Users:
                 data=error
             ).to_dict()
             return result
-        finally:
-            gc.collect()
 
     async def add_api_user(
         username: str,
@@ -73,7 +70,7 @@ class API_Users:
         roles: str
     ):
         '''
-        Adding API User to Mysql
+        新增api用户
         '''
         try:
             result = None
@@ -102,5 +99,3 @@ class API_Users:
                 data=error
             ).to_dict()
             return result
-        finally:
-            gc.collect()

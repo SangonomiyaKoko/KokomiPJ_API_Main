@@ -4,13 +4,13 @@ import hashlib
 from jose import jwt
 
 class API_Secruity:
+    _instance = None
     SECRET_KEY = "kokomi"
     ALGORITHM = "HS256"
-    _instance = None
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls):
         if not cls._instance:
-            cls._instance = super(API_Secruity, cls).__new__(cls)
+            cls._instance = super().__new__(cls)
         return cls._instance
     
     def encode_password(

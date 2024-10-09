@@ -49,6 +49,6 @@ CREATE TABLE user_info (
     leveling_points INT NOT NULL DEFAULT 0,
     last_battle_time INT NOT NULL DEFAULT 0,
     PRIMARY KEY (account_id),
-    UNIQUE INDEX idx_region_account_id (region, account_id) 
+    UNIQUE INDEX idx_region_account_id (region, account_id)
 );
 ```
