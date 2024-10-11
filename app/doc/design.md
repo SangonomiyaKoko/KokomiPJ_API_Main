@@ -125,7 +125,7 @@ team_data_example = {
 
 ### 后台处理流程
 
-[图片](./png/app_basic.png)
+![图片](./png/app_basic.png)
 
 ## 用户排行榜及服务器数据统计
 
