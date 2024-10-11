@@ -213,7 +213,7 @@ CREATE TABLE ship_sid (
 
 #### Cache自动更新逻辑
 
-建立一个线程，用于自动更新。
+建立一个进程/线程，用于自动更新。
 
 一、线程从User_baisc库中取出id在[offset, offset+10000]中的1w个用户的 (aid, region, cache_level, cache_ts) 的数据
 
@@ -223,8 +223,62 @@ CREATE TABLE ship_sid (
 
 四、拿到返回值后，遍历sid去对应检查数据是否需要更新数据库数据
 
-#### 使用Caches实现排行榜逻辑
+#### 使用Cache实现排行榜逻辑
 
 排行榜计划每20-30分钟更新一次
 
 redis做排行榜的缓存
+
+个人数据 + 服务器数据 + pr算法 = pr
+
+emmmm......
+
+## Recent功能
+
+### Table 5: Recent
+
+用于存储启用recent功能的用户，用于遍历更新recent数据库
+
+```sql
+CREATE TABLE recent (
+    id               INT          AUTO_INCREMENT,
+    -- 用户基本信息
+    account_id       BIGINT       NOT NULL,
+    region_id        TINYINT      NOT NULL,
+    -- 用户配置
+    class            INT          NOT NULL,     -- 最多保留多少天的数据
+    -- 数据更新时间
+    update_ts        INT          DEFAULT 0,    -- 表示recent数据上一次更新时间
+    PRIMARY KEY (id),
+    UNIQUE INDEX idx_rid_aid (region_id, account_id)
+);
+```
+
+### Recent更新策略
+
+1. 确保每个用户每天至少更新一次
+2. 每天最后一次更新时间应该尽可能的接近当地时间的24点
+3. 在22-2点的区间内是活跃更新时间
+4. 在非活跃时间内保持至少每6个小时更新一次的频率
+5. 当用户获取recent数据的时候被动触发一次更新
+
+### Recent更新逻辑
+
+## Recents功能
+
+### Table 6: Recents
+
+```sql
+CREATE TABLE recents (
+    id               INT          AUTO_INCREMENT,
+    -- 用户基本信息
+    account_id       BIGINT       NOT NULL,
+    region_id        TINYINT      NOT NULL,
+    -- 用户配置
+    proxy            TINYINT      NOT NULL,     -- 表示Recents代理服务器地址
+    -- 数据更新时间
+    update_ts        INT          DEFAULT 0,
+    PRIMARY KEY (id),
+    UNIQUE INDEX idx_rid_aid (region_id, account_id)
+);
+```
