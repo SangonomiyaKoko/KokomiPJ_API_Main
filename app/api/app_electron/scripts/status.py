@@ -169,13 +169,12 @@ async def main(
             error_name=str(type(e).__name__),
             error_info=error_info
         )
-        error = BaseError(
-            error_info=str(type(e).__name__),
-            track_id=track_id
-        )
         result = ErrorResponse(
-            message='PROGRAM ERROR',
-            data=error
+            message = 'PROGRAM ERROR',
+            data = BaseError(
+                error_info=str(type(e).__name__),
+                track_id=track_id
+            )
         )
         return result
 
