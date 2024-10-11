@@ -225,4 +225,6 @@ CREATE TABLE ship_sid (
 
 #### 使用Caches实现排行榜逻辑
 
-其实我考虑到两种使用redis来实现排行榜的逻辑
+排行榜计划每20-30分钟更新一次
+
+redis做排行榜的缓存
