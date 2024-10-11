@@ -125,4 +125,104 @@ team_data_example = {
 
 ### 后台处理流程
 
-![图片](./png/app_basic.png)
+[图片](./png/app_basic.png)
+
+## 用户排行榜及服务器数据统计
+
+本部分主要讨论两个功能
+
+一、船只排行榜
+
+- 每艘船只对应一个表，存储所有的数据
+- 包括单个服务器及所有服务器的榜单，暂时只考虑按pr排序
+
+二、服务器级数据统计
+
+- 统计某艘船只总体数据，例如大和在亚服的服务器数据
+- 根据每个版本计算近期数据
+
+### Table 4：Cache
+
+用于记录用户中所有的ship_id的数据
+
+如果需要计算服务器数据就只用遍历数据库将所有数据相加
+
+如果需要计算船只排行榜只用筛选出有效数据计算排行榜
+
+```sql
+-- table命名格式是ship_+sid，例如ship_100000001
+CREATE TABLE ship_sid (
+    -- 用户基本信息
+    account_id       BIGINT       NOT NULL,
+    region_id        TINYINT      NOT NULL,
+    -- 数据更新时间
+    update_ts        INT          DEFAULT 0,
+    -- 具体数据
+    battles_count    INT          NULL,
+    wins             INT          NULL,
+    damage_dealt     BIGINT       NULL,
+    frags            INT          NULL,
+    exp              BIGINT       NULL,
+    survived         INT          NULL,
+    scouting_damage  BIGINT       NULL,
+    art_agro         BIGINT       NULL,
+    planes_killed    INT          NULL,
+    -- Record
+    max_exp          INT          NULL,
+    max_damage_dealt INT          NULL,
+    max_frags        INT          NULL,
+
+    PRIMARY KEY (account_id),
+    UNIQUE INDEX idx_rid_aid (region_id, account_id)
+);
+```
+
+### 计算服务器数据
+
+只需要遍历所有ship表，将所有的数据相加就可以获取到总体数据，示例如下
+
+```json
+{
+    "4276041424": {
+        "cn": {
+            "battles_count": 31282830,
+            "wins": 15567245,
+            "damage_dealt": 2813223587788,
+            "frags": 23397250,
+            "exp": 38558358969,
+            "survived": 13069204,
+            "scouting_damage": 618800067814,
+            "art_agro": 40434998378923,
+            "planes_killed": 68066022
+        },
+        "other": {
+            
+        }
+    }
+}
+```
+
+由于里面的数字可能比较大，所以选择直接存储为json格式，python的int可以为无限大
+
+### 排行榜逻辑
+
+用户账号缓存更新分为两种：
+
+- 自动更新
+- 用户手动更新
+
+#### Cache自动更新逻辑
+
+建立一个线程，用于自动更新。
+
+一、线程从User_baisc库中取出id在[offset, offset+10000]中的1w个用户的 (aid, region, cache_level, cache_ts) 的数据
+
+二、根据用户的活跃等级cache_level和cache_ts来判断是否需要更新，例如对于非常活跃的用户我们设定每天至少更新一次，通过计算当前时间戳和cache_ts来判断
+
+三、如果需要更新，则会去通过接口请求这个用户的所有船只数据，获得一个包含所有船只数据的一个返回值
+
+四、拿到返回值后，遍历sid去对应检查数据是否需要更新数据库数据
+
+#### 使用Caches实现排行榜逻辑
+
+其实我考虑到两种使用redis来实现排行榜的逻辑
