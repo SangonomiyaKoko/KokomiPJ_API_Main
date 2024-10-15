@@ -36,7 +36,7 @@ VALUES
 用于存储用户名称
 
 ```sql
-CREATE TABLE user_name(
+CREATE TABLE user_name (
     id               INT          AUTO_INCREMENT,
     -- 用户name,clan数据
     account_id       BIGINT       NOT NULL,    -- 1-11位的非连续数字
@@ -55,7 +55,7 @@ CREATE TABLE user_name(
 用于存储工会名称
 
 ```sql
-CREATE TABLE clan_name(
+CREATE TABLE clan_name (
     id               INT          AUTO_INCREMENT,
     -- 工会tag,color数据
     clan_id          BIGINT       NOT NULL,     -- 11位的非连续数字
@@ -91,7 +91,7 @@ CREATE TABLE user_clan (
 用于存储用户的基本信息
 
 ```sql
-CREATE TABLE user_basic(
+CREATE TABLE user_basic (
     id               INT          AUTO_INCREMENT,
     -- 用户基础信息 aid rid name
     account_id       BIGINT       NOT NULL,    -- 1-11位的非连续数字
@@ -128,12 +128,12 @@ CREATE TABLE user_basic(
 用于存储工会的信息
 
 ```sql
-CREATE TABLE clan_basic(
+CREATE TABLE clan_basic (
     id               INT          AUTO_INCREMENT,
-    -- 工会基础信息 cid rid tag
+    -- 工会基础信息 cid rid
     clan_id          BIGINT       NOT NULL,     -- 11位的非连续数字
     region_id        TINYINT      NOT NULL,
-    -- 工会段位数据缓存，用于实现工会排行榜
+    -- 工会段位数据缓存
     league           TINYINT      DEFAULT 0,    -- 当前段位 0紫金 1白金 2黄金 3白银 4青铜
     update_ts        INT          DEFAULT 0,    -- 更新时间
 
@@ -147,7 +147,7 @@ CREATE TABLE clan_basic(
 用于存储工会的赛季数据
 
 ```sql
-CREATE TABLE clan_cache(
+CREATE TABLE clan_cache (
     id               INT          AUTO_INCREMENT,
     -- 工会基础信息 cid rid tag
     clan_id          BIGINT       NOT NULL,     -- 11位的非连续数字
@@ -172,10 +172,10 @@ CREATE TABLE clan_cache(
 用于存储工会的赛季数据
 
 ```sql
-CREATE TABLE user_cache(
+CREATE TABLE user_cache (
     id               INT          AUTO_INCREMENT,
     -- 工会基础信息 cid rid tag
-    account_id          BIGINT       NOT NULL,     -- 11位的非连续数字
+    account_id       BIGINT       NOT NULL,     -- 11位的非连续数字
     region_id        TINYINT      NOT NULL,
 
     update_ts        INT          DEFAULT 0,    -- 上面数据的更新时间
@@ -217,6 +217,74 @@ team_data_example = {
 }
 ```
 
+### Table 5: Ship_Basic
+
+```sql
+CREATE TABLE ship_basic (
+    ship_id          BIGINT       NOT NULL,     -- 11位的非连续数字
+    tier             TINYINT      DEFAULT 1,    -- 1-11级
+    class_id         TINYINT      DEFAULT 1,    -- 1-5表示船只类型
+    nation_id        TINYINT      DEFAULT 1,    -- 1-15表示船只国家
+    premium          TINYINT(1)   DEFAULT 0,    -- 加值船只 0不是 1是
+    special          TINYINT(1)   DEFAULT 0,    -- 特殊船只 0不是 1是
+    ids              VARCHAR(8)   NULL,         -- 船只IDS
+    operator         TINYINT      DEFAULT 1,    -- 运营商 0:all 1:wg 2:lesta
+
+    PRIMARY KEY (ship_id)
+);
+```
+
+### Table 6: Ship_Class
+
+```sql
+CREATE TABLE ship_class (
+    class_id         TINYINT      NOT NULL,
+    class_str        VARCHAR(10)  NOT NULL,
+
+    PRIMARY KEY (class_id)
+);
+
+INSERT INTO region 
+    (class_id, class_str) 
+VALUES
+    (1, "AirCarrier"), (2, "Battleship"), (3, "Cruiser"), (4, "Destroyer"), (5, "Submarine");
+```
+
+#### class_id对应列表
+
+| class_id | class_str  |
+| -------- | ---------- |
+| 1        | AirCarrier |
+| 2        | Battleship |
+| 3        | Cruiser    |
+| 4        | Destroyer  |
+| 5        | Submarine  |
+
+### Table 7: Ship_Nation
+
+```sql
+CREATE TABLE ship_nation (
+    nation_id         TINYINT      NOT NULL,
+    nation_str        VARCHAR(10)  NOT NULL,
+
+    PRIMARY KEY (nation_id)
+);
+
+INSERT INTO ship_nation 
+    (nation_id, nation_str) 
+VALUES
+    (1, "AirCarrier"), (2, "Battleship"), (3, "Cruiser"), (4, "Destroyer"), (5, "Submarine");
+```
+
+#### nation_id对应列表
+
+| nation_id | nation_str  |
+| --------- | ----------- |
+| 1         | usa         |
+| 2         | japan       |
+| 3         | europe      |
+| 4         | france      |
+
 ## 接口基本请求逻辑
 
 以wws me功能的接口为例
@@ -255,6 +323,7 @@ team_data_example = {
 ```sql
 -- table命名格式是ship_+sid，例如ship_100000001
 CREATE TABLE ship_sid (
+    id               INT          AUTO_INCREMENT,
     -- 用户基本信息
     account_id       BIGINT       NOT NULL,
     region_id        TINYINT      NOT NULL,
@@ -275,7 +344,7 @@ CREATE TABLE ship_sid (
     max_damage_dealt INT          NULL,
     max_frags        INT          NULL,
 
-    PRIMARY KEY (account_id),
+    PRIMARY KEY (id),
     UNIQUE INDEX idx_rid_aid (region_id, account_id)
 );
 ```
